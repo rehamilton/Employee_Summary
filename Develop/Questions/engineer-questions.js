@@ -22,3 +22,5 @@ engineerQuestions = [
         message: "What is this engineer's GitHub name?"
     }
 ]
+
+module.exports = engineerQuestions

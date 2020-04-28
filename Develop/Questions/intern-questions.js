@@ -1,24 +1,26 @@
 
 
-engineerQuestions = [
+internQuestions = [
     {
         type: "input",
-        name: "engineer",
-        message: "What is the engineer's name?"
+        name: "intern",
+        message: "What is the intern's name?"
     },
     {
         type: "input",
-        name: "engineerId",
-        message: "Please enter this engineer's ID."
+        name: "internId",
+        message: "Please enter this intern's ID."
     },
     {
         type: "input",
-        name: "engineerEmail",
-        message: "Please enter this engineer's e-mail."
+        name: "internEmail",
+        message: "Please enter this intern's e-mail."
     },
     {
         type: "input",
-        name: "engineergithub",
-        message: "What is this engineer's GitHub name?"
+        name: "internSchool",
+        message: "What school does this intern come from?"
     }
 ]
+
+module.exports = internQuestions

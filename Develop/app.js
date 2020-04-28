@@ -5,6 +5,8 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 const managerQuestions = require("./Questions/manager-questions")
+const engineerQuestions = require("./Questions/engineer-questions")
+const internQuestions = require("./Questions/intern-questions")
 ​
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
