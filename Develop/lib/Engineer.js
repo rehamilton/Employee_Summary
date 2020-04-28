@@ -5,10 +5,12 @@ const Employee = require("./Employee")
 class Engineer extends Employee {
 
     constructor(name, ID, email, GitHub) {
-        this.name = name;
-        this.ID = ID;
-        this.email = email;
+        super (name, ID, email);
         this.GitHub = GitHub
+    }
+
+    getRole() {
+        return "Engineer"
     }
 
 
