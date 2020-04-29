@@ -96,7 +96,7 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
         .prompt(internQuestions)
         .then(response => {
             //add answers to constructor constructor to create new object
-            const intern = new Intern (response.intern, response.minternId, response.internEmail, response.internSchool);
+            const intern = new Intern (response.intern, response.internId, response.internEmail, response.internSchool);
             //push new object to orgPositions
             orgPositions.push(intern);
             //Ask if any other positions to be added
