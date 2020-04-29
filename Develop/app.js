@@ -5,7 +5,9 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+//declare where the output folder name 
 const OUTPUT_DIR = path.resolve(__dirname, "output")
+//Join the output file to the output folder to create a full directory address
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
@@ -27,8 +29,11 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
         inquirer
         .prompt(managerQuestions)
         .then(response => {
+            //add answers to constructor constructor to create new object
             const manager = new Manager(response.manager, response.managerId, response.managerEmail, response.managerOfficeNumber)
+            //push new object to orgPositions
             orgPositions.push(manager)
+            //Ask if any other positions to be added
             teamMembers()
     })
     }
@@ -48,14 +53,21 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
             }])
         .then(choice => {
             switch(choice.teamMember) {
+                // if Engineer chosen run engineer function with engineer questions
                 case "Engineer":
                     newEngineer(engineerQuestions)
                     break;
+                // if Intern chosen run intern function with intern questions
                 case "Intern":
                     newIntern(internQuestions)
                     break;
+                // if finished then start to run organisational structure construction
                 case "Finished adding to my team":
                     orgStructure(orgPositions)
+                    break
+                default:
+                    orgStructure(orgPositions)
+                    break
             }
         })
     }
@@ -66,8 +78,11 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
         inquirer
         .prompt(engineerQuestions)
         .then(response => {
+            //add answers to constructor constructor to create new object
             const engineer = new Engineer(response.engineer, response.engineerId, response.engineerEmail, response.engineerGithub);
+            //push new object to orgPositions
             orgPositions.push(engineer);
+            //Ask if any other positions to be added
             teamMembers();
         })
         
@@ -79,8 +94,11 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
         inquirer
         .prompt(internQuestions)
         .then(response => {
+            //add answers to constructor constructor to create new object
             const intern = new Intern (response.intern, response.minternId, response.internEmail, response.internSchool);
+            //push new object to orgPositions
             orgPositions.push(intern);
+            //Ask if any other positions to be added
             teamMembers();
         })
         
@@ -89,11 +107,22 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
     //create organisational structure using the organisational position array
     function orgStructure(orgPositions) {
 
-        console.log(orgPositions);
-        
-        fs.writeFileSync(outputPath, render(orgPositions), "UTF-8");
+        try{
+            //console.log(orgPositions);
 
-        console.log("Organisational Structure Ready for viewing in output folder");
+            //render the organisation positions to HTML
+            const division = render(orgPositions)
+
+            //write file to directory address using the rendered organisation Positions
+            fs.writeFileSync(outputPath, division);
+
+            //notify user of success
+            console.log("Organisational Structure Ready for viewing in output folder");
+
+        }catch(err) {
+            //notify user of error
+            console.log(err);
+        }        
     } 
 
 }
