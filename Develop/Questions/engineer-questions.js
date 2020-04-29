@@ -18,7 +18,7 @@ engineerQuestions = [
     },
     {
         type: "input",
-        name: "engineergithub",
+        name: "engineerGithub",
         message: "What is this engineer's GitHub name?"
     }
 ]

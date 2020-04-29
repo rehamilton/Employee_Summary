@@ -4,47 +4,102 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-const managerQuestions = require("./Questions/manager-questions")
-const engineerQuestions = require("./Questions/engineer-questions")
-const internQuestions = require("./Questions/intern-questions")
-​
+
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-​
+
 const render = require("./lib/htmlRenderer");
-​
+
+const managerQuestions = require("./Questions/manager-questions");
+const engineerQuestions = require("./Questions/engineer-questions");
+const internQuestions = require("./Questions/intern-questions");
+
 const orgPositions = []
-const IDs = []
-​
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-​
-function init() {
 
-    function manager() {
-        inquirer.prompt([
+function start(managerQuestions, engineerQuestions, internQuestions) {
 
-        ])
+    //starting function
+    newManager(managerQuestions)
+
+    // start with top of structure - manager
+    function newManager() {
+
+        inquirer
+        .prompt(managerQuestions)
+        .then(response => {
+            const manager = new Manager(response.manager, response.managerId, response.managerEmail, response.managerOfficeNumber)
+            orgPositions.push(manager)
+            teamMembers()
+    })
     }
+
+    //Ask what positions manager wants to add to the organisationla structure
+    function teamMembers() {
+        inquirer
+        .prompt([{
+            type: "list",
+            name: "teamMember",
+            message: "Which positions would you like to add to your team?",
+            choices: [
+                "Engineer",
+                "Intern",
+                "Finished adding to my team"
+            ]
+            }])
+        .then(choice => {
+            switch(choice.teamMember) {
+                case "Engineer":
+                    newEngineer(engineerQuestions)
+                    break;
+                case "Intern":
+                    newIntern(internQuestions)
+                    break;
+                case "Finished adding to my team":
+                    orgStructure(orgPositions)
+            }
+        })
+    }
+    
+    //Get Engineer information
+    function newEngineer(engineerQuestions) {
+
+        inquirer
+        .prompt(engineerQuestions)
+        .then(response => {
+            const engineer = new Engineer(response.engineer, response.engineerId, response.engineerEmail, response.engineerGithub);
+            orgPositions.push(engineer);
+            teamMembers();
+        })
+        
+    }
+
+    //Get Intern information
+    function newIntern(internQuestions) {
+
+        inquirer
+        .prompt(internQuestions)
+        .then(response => {
+            const intern = new Intern (response.intern, response.minternId, response.internEmail, response.internSchool);
+            orgPositions.push(intern);
+            teamMembers();
+        })
+        
+    }
+
+    //create organisational structure using the organisational position array
+    function orgStructure(orgPositions) {
+
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR)
+        }
+        
+        fs.writeFileSync(outputPath, render(orgPositions), "UTF-8");
+
+        console.log("Organisational Structure Ready for viewing in output folder");
+    } 
 
 }
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-​
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-​
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-​
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an 
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
+//start the main function
+start(managerQuestions, engineerQuestions, internQuestions)
+

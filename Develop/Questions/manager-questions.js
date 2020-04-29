@@ -7,7 +7,7 @@ managerQuestions = [
     },
     {
         type: "input",
-        name: "ManagerId",
+        name: "managerId",
         message: "Please enter the manager's ID."
     },
     {
@@ -17,7 +17,7 @@ managerQuestions = [
     },
     {
         type: "input",
-        name: "officeNumber",
+        name: "managerOfficeNumber",
         message: "What is the manager's office number?"
     }
 ]
