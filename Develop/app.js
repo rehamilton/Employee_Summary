@@ -12,18 +12,22 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+//import manager questions
 const managerQuestions = require("./Questions/manager-questions");
+//import engineer questions
 const engineerQuestions = require("./Questions/engineer-questions");
+//import intern questions
 const internQuestions = require("./Questions/intern-questions");
 
+//create an organisational positions object
 const orgPositions = []
 
 function start(managerQuestions, engineerQuestions, internQuestions) {
 
-    //starting function
+    //start with top of structure - manager
     newManager(managerQuestions)
 
-    // start with top of structure - manager
+    //Get manager information
     function newManager() {
 
         inquirer
@@ -63,9 +67,6 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
                     break;
                 // if finished then start to run organisational structure construction
                 case "Finished adding to my team":
-                    orgStructure(orgPositions)
-                    break
-                default:
                     orgStructure(orgPositions)
                     break
             }
