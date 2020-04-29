@@ -89,9 +89,7 @@ function start(managerQuestions, engineerQuestions, internQuestions) {
     //create organisational structure using the organisational position array
     function orgStructure(orgPositions) {
 
-        if (!fs.existsSync(OUTPUT_DIR)) {
-            fs.mkdirSync(OUTPUT_DIR)
-        }
+        console.log(orgPositions);
         
         fs.writeFileSync(outputPath, render(orgPositions), "UTF-8");
 
