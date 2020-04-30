@@ -52,7 +52,7 @@
 
   ## Video
 
-  ![./Assets/video.mp4](Assets/video.mp4)
+  ![./Assets/video.mp4](https://github.com/rehamilton/Employee_Summary/blob/master/Assets/video.mp4)
 
 
 
@@ -60,7 +60,7 @@
 
   Below is a visual runthrough of how the application works
 
-  ![./Assets/Workflow.png](Assets/Workflow.png)
+  ![./Assets/Workflow.png](https://github.com/rehamilton/Employee_Summary/blob/master/Assets/Workflow.PNG)
 
 
   ## Questions
@@ -70,7 +70,7 @@
 
   <img src="https://avatars1.githubusercontent.com/u/59821631?v=4" alt="avatar" style="border-radius: 16px" width="30" />
 
-  ![License](https://img.shields.io/github/license/rehamilton/README_Generator?style=flat-square)
+  
 
   ![GitHub repo size](https://img.shields.io/github/repo-size/rehamilton/README_Generator)
 
